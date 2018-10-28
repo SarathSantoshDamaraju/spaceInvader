@@ -27,11 +27,18 @@ var game = {
 
     // Run on game resources loaded.
     "loaded" : function () {
-        me.state.set(me.state.MENU, new game.TitleScreen());
-        me.state.set(me.state.PLAY, new game.PlayScreen());
+        
+        me.pool.register("player", game.Player);
+        me.pool.register("enemy", game.Enemy);
+        me.pool.register("laser", game.Laser);
+
+
+        // me.state.set(me.state.MENU, new game.TitleScreen());
+        this.playScreen = new game.PlayScreen();
+        me.state.set(me.state.PLAY, this.playScreen);
 
         // add our player entity in the entity pool
-        me.pool.register("mainPlayer", game.PlayerEntity);
+        // me.pool.register("mainPlayer", game.PlayerEntity);
 
         // Start the game.
         me.state.change(me.state.PLAY);
